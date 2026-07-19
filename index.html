@@ -1,0 +1,1339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Writing Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --cream: #F5F2EC;
+  --cream-dark: #EDE9E0;
+  --ink: #1A1A18;
+  --ink-soft: #2C2C2A;
+  --warm-grey: #8A8580;
+  --light-grey: #6B6660;
+  --red-accent: #C41E1E;
+  --blue-accent: #1B3F7A;
+  --off-white: #F0EDE8;
+  --kraft: #C4A97D;
+  --dark-surface: #1A1A18;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: 'Space Mono', monospace;
+  cursor: crosshair;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* === PAPER GRAIN (mandatory) === */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10000;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* === SECONDARY GRAIN (different stock) === */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n2'%3E%3CfeTurbulence type='turbulence' baseFrequency='1.2' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n2)'/%3E%3C/svg%3E");
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  position: relative;
+}
+
+a::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--ink);
+  transition: width 600ms ease-out;
+}
+
+a:hover::after {
+  width: 100%;
+}
+
+/* ================================
+   SECTION 1: COLD OPEN / COVER
+   ================================ */
+.cover {
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 5vw 6vh 8vw;
+  background:
+    linear-gradient(175deg, transparent 0%, rgba(0,0,0,0.012) 25%, transparent 45%, rgba(0,0,0,0.008) 65%, transparent 85%),
+    linear-gradient(95deg, transparent 0%, rgba(0,0,0,0.018) 35%, transparent 55%, rgba(0,0,0,0.006) 75%, transparent 100%);
+  box-shadow:
+    inset 3px 3px 14px rgba(0,0,0,0.035),
+    inset -2px -2px 10px rgba(0,0,0,0.02);
+}
+
+/* crop marks on cover */
+.cover::before {
+  content: '';
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  width: 20px;
+  height: 20px;
+  border-top: 1px solid rgba(0,0,0,0.18);
+  border-left: 1px solid rgba(0,0,0,0.18);
+}
+
+.cover::after {
+  content: '';
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  width: 20px;
+  height: 20px;
+  border-top: 1px solid rgba(0,0,0,0.18);
+  border-right: 1px solid rgba(0,0,0,0.18);
+  z-index: 1;
+}
+
+.cover-meta {
+  position: absolute;
+  top: 32px;
+  right: 72px;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--warm-grey);
+  line-height: 1.8;
+}
+
+.cover-clock {
+  position: absolute;
+  top: 32px;
+  left: 72px;
+  font-size: 10px;
+  font-family: 'Space Mono', monospace;
+  letter-spacing: 0.15em;
+  color: var(--warm-grey);
+}
+
+.cover-stamp {
+  position: absolute;
+  top: 38%;
+  right: 8vw;
+  transform: rotate(-12deg);
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--red-accent);
+  border: 2px solid var(--red-accent);
+  padding: 6px 14px;
+  opacity: 0.55;
+  border-radius: 2px;
+}
+
+.cover-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: clamp(64px, 12vw, 200px);
+  line-height: 0.88;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  margin-bottom: 24px;
+  position: relative;
+  /* ink bleed */
+  text-shadow:
+    0.5px 0.4px 0 rgba(0,0,0,0.2),
+    -0.3px 0.2px 0 rgba(0,0,0,0.1),
+    0 0 3px rgba(0,0,0,0.04);
+}
+
+/* registration error on title */
+.cover-title::before {
+  content: attr(data-text);
+  position: absolute;
+  left: 1.5px;
+  top: 1px;
+  color: rgba(0, 160, 180, 0.07);
+  z-index: -1;
+}
+
+.cover-subtitle {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--warm-grey);
+  margin-bottom: 12px;
+}
+
+.cover-line {
+  width: 60px;
+  height: 1px;
+  background: var(--ink);
+  opacity: 0.3;
+  margin-bottom: 16px;
+}
+
+.cover-description {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 16px;
+  color: var(--light-grey);
+  max-width: 380px;
+  line-height: 1.6;
+}
+
+/* scroll indicator */
+.scroll-cue {
+  position: absolute;
+  bottom: 24px;
+  right: 5vw;
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--warm-grey);
+  writing-mode: vertical-rl;
+  animation: drift 3s ease-in-out infinite;
+}
+
+@keyframes drift {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
+
+/* ================================
+   SECTION 2: ABOUT STRIP
+   ================================ */
+.about-strip {
+  position: relative;
+  background: var(--dark-surface);
+  color: var(--off-white);
+  padding: 80px 8vw 90px;
+  /* linen texture */
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.012) 2px, rgba(255,255,255,0.012) 3px),
+    repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255,255,255,0.012) 2px, rgba(255,255,255,0.012) 3px);
+  background-color: var(--dark-surface);
+}
+
+/* torn top edge */
+.about-strip::before {
+  content: '';
+  position: absolute;
+  top: -30px;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: var(--dark-surface);
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60'%3E%3Cpath d='M0,60 L0,25 Q50,30 100,22 Q150,15 200,28 Q250,38 300,20 Q350,8 400,25 Q450,35 500,18 Q550,5 600,22 Q650,33 700,15 Q750,5 800,20 Q850,32 900,12 Q950,5 1000,22 Q1050,35 1100,18 Q1150,8 1200,25 L1200,60 Z' fill='white'/%3E%3C/svg%3E");
+  mask-size: 100% 100%;
+  mask-repeat: no-repeat;
+  z-index: 2;
+}
+
+.about-inner {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 60px;
+  align-items: start;
+  max-width: 1100px;
+}
+
+.about-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(240, 237, 232, 0.4);
+  margin-bottom: 20px;
+}
+
+.about-number {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 72px;
+  font-weight: 300;
+  line-height: 1;
+  color: rgba(240, 237, 232, 0.08);
+  /* embossed */
+  text-shadow:
+    0 1px 0 rgba(255,255,255,0.06),
+    0 -1px 0 rgba(0,0,0,0.4);
+}
+
+.about-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--off-white);
+  max-width: 580px;
+}
+
+.about-text em {
+  font-style: italic;
+  color: rgba(240, 237, 232, 0.7);
+}
+
+.about-meta-row {
+  display: flex;
+  gap: 40px;
+  margin-top: 36px;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(240, 237, 232, 0.35);
+}
+
+.about-meta-row span {
+  position: relative;
+  padding-left: 16px;
+}
+
+.about-meta-row span::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+}
+
+
+/* ================================
+   SECTION 3: WORKS INDEX / LEDGER
+   ================================ */
+.index-section {
+  position: relative;
+  padding: 100px 0 80px;
+  background:
+    linear-gradient(178deg, transparent 0%, rgba(0,0,0,0.008) 30%, transparent 60%, rgba(0,0,0,0.012) 80%, transparent 100%);
+  /* newsprint stock feel */
+  background-color: #EFECE5;
+}
+
+/* fabric weave overlay */
+.index-section::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 4px, rgba(0,0,0,0.01) 4px, rgba(0,0,0,0.01) 5px),
+    repeating-linear-gradient(90deg, transparent, transparent 4px, rgba(0,0,0,0.01) 4px, rgba(0,0,0,0.01) 5px);
+  z-index: 1;
+}
+
+.index-header {
+  padding: 0 8vw;
+  margin-bottom: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  position: relative;
+  z-index: 2;
+}
+
+.index-heading {
+  font-family: 'Inter', sans-serif;
+  font-weight: 900;
+  font-size: clamp(48px, 7vw, 120px);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  /* ink bleed */
+  text-shadow:
+    0.6px 0.4px 0 rgba(0,0,0,0.22),
+    -0.3px 0.3px 0 rgba(0,0,0,0.1),
+    0 0 4px rgba(0,0,0,0.03);
+  position: relative;
+}
+
+/* misregistration */
+.index-heading::before {
+  content: 'Selected Works';
+  position: absolute;
+  left: 2px;
+  top: 1px;
+  color: rgba(0, 160, 180, 0.08);
+  z-index: -1;
+}
+
+.index-count {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--warm-grey);
+  padding-bottom: 8px;
+}
+
+/* hairline */
+.index-rule {
+  height: 1px;
+  background: var(--ink);
+  opacity: 0.15;
+  margin: 0 8vw 0;
+  position: relative;
+  z-index: 2;
+}
+
+/* index list */
+.index-list {
+  list-style: none;
+  position: relative;
+  z-index: 2;
+}
+
+.index-item {
+  display: grid;
+  grid-template-columns: 60px 1fr auto;
+  gap: 0;
+  align-items: baseline;
+  padding: 18px 8vw;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  transition: background 500ms ease-out;
+  cursor: pointer;
+  position: relative;
+}
+
+.index-item:hover {
+  background: rgba(0,0,0,0.025);
+}
+
+.index-item:hover .item-title {
+  font-style: italic;
+}
+
+.item-num {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--warm-grey);
+}
+
+.item-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.item-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  transition: font-style 400ms ease-out;
+  line-height: 1.3;
+}
+
+.item-pub {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--warm-grey);
+}
+
+.item-year {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--light-grey);
+  justify-self: end;
+}
+
+/* cursor-following preview image */
+.preview-float {
+  position: fixed;
+  width: 240px;
+  height: 160px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 300ms ease-out;
+  z-index: 100;
+  /* scan treatment */
+  transform: rotate(-1.5deg);
+  box-shadow:
+    4px 5px 16px rgba(0,0,0,0.15),
+    0 0 0 1px rgba(0,0,0,0.04);
+  overflow: hidden;
+}
+
+.preview-float.visible {
+  opacity: 1;
+}
+
+.preview-float img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.7) contrast(1.08);
+}
+
+/* halftone overlay on preview */
+.preview-float::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, #000 0.4px, transparent 0.4px);
+  background-size: 3px 3px;
+  opacity: 0.06;
+  pointer-events: none;
+}
+
+
+/* ================================
+   SECTION 4: FEATURED SPREAD
+   ================================ */
+.spread {
+  position: relative;
+  display: grid;
+  grid-template-columns: 55% 45%;
+  min-height: 80vh;
+  overflow: hidden;
+}
+
+/* center fold crease */
+.spread::before {
+  content: '';
+  position: absolute;
+  left: 55%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom,
+    transparent,
+    rgba(0,0,0,0.06) 20%,
+    rgba(0,0,0,0.09) 50%,
+    rgba(0,0,0,0.06) 80%,
+    transparent
+  );
+  box-shadow:
+    -4px 0 8px rgba(0,0,0,0.03),
+    4px 0 8px rgba(0,0,0,0.03);
+  z-index: 3;
+}
+
+.spread-left {
+  position: relative;
+  background: #EAE5DC;
+  padding: 80px 60px 80px 8vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* different paper stock - warmer, more aged */
+  background-image:
+    linear-gradient(170deg, transparent 0%, rgba(160,130,80,0.02) 40%, transparent 70%);
+  background-color: #EAE5DC;
+  box-shadow:
+    inset 4px 4px 16px rgba(0,0,0,0.03),
+    inset -2px -2px 10px rgba(0,0,0,0.02);
+}
+
+/* foxing marks (age spots) */
+.spread-left::after {
+  content: '';
+  position: absolute;
+  top: 15%;
+  right: 12%;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(160,120,60,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.spread-category {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--red-accent);
+  margin-bottom: 24px;
+  opacity: 0.8;
+}
+
+.spread-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: clamp(36px, 5vw, 72px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-bottom: 32px;
+  text-shadow:
+    0.3px 0.3px 0 rgba(0,0,0,0.15),
+    0 0 2px rgba(0,0,0,0.03);
+}
+
+.spread-excerpt {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+  max-width: 440px;
+  margin-bottom: 40px;
+}
+
+.spread-date {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  color: var(--warm-grey);
+}
+
+.spread-right {
+  position: relative;
+  background: var(--cream);
+  overflow: hidden;
+}
+
+.spread-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.65) contrast(1.05) brightness(0.98);
+  /* slight scan rotation */
+  transform: rotate(0.4deg) scale(1.02);
+}
+
+/* tape holding the image */
+.spread-right::before {
+  content: '';
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-3deg);
+  width: 90px;
+  height: 26px;
+  background: rgba(200, 180, 140, 0.45);
+  border: 1px solid rgba(180, 160, 120, 0.2);
+  z-index: 4;
+}
+
+/* halftone on the image */
+.spread-right::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(0,0,0,0.6) 0.3px, transparent 0.3px);
+  background-size: 4px 4px;
+  opacity: 0.04;
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* gallery caption below image */
+.spread-caption {
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--warm-grey);
+  z-index: 5;
+}
+
+
+/* ================================
+   SECTION 5: PULL QUOTE
+   ================================ */
+.pullquote-section {
+  position: relative;
+  padding: 120px 8vw;
+  text-align: left;
+  background: #F2EEE6;
+  background-image:
+    linear-gradient(172deg, transparent 0%, rgba(0,0,0,0.01) 50%, transparent 100%);
+  box-shadow:
+    inset 2px 2px 12px rgba(0,0,0,0.03),
+    inset -1px -1px 8px rgba(0,0,0,0.015);
+}
+
+.pullquote {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-style: italic;
+  font-size: clamp(28px, 4.5vw, 64px);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  max-width: 900px;
+  margin-left: 10vw;
+  color: var(--ink);
+  position: relative;
+  /* letterpress impression */
+  text-shadow:
+    0 1px 0 rgba(255,255,255,0.35),
+    0 -1px 0 rgba(0,0,0,0.08);
+}
+
+.pullquote::before {
+  content: '\201C';
+  position: absolute;
+  left: -0.6em;
+  top: -0.15em;
+  font-size: 1.6em;
+  font-style: normal;
+  color: var(--red-accent);
+  opacity: 0.3;
+}
+
+.pullquote-attr {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--warm-grey);
+  margin-top: 28px;
+  margin-left: 10vw;
+}
+
+
+/* ================================
+   SECTION 6: PUBLICATIONS GRID
+   ================================ */
+.pubs-section {
+  position: relative;
+  background: var(--dark-surface);
+  color: var(--off-white);
+  padding: 100px 8vw;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(255,255,255,0.008) 3px, rgba(255,255,255,0.008) 4px),
+    repeating-linear-gradient(90deg, transparent, transparent 3px, rgba(255,255,255,0.008) 3px, rgba(255,255,255,0.008) 4px);
+  background-color: var(--dark-surface);
+}
+
+/* torn bottom edge */
+.pubs-section::after {
+  content: '';
+  position: absolute;
+  bottom: -30px;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: var(--dark-surface);
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60'%3E%3Cpath d='M0,0 L0,35 Q50,28 100,38 Q150,48 200,32 Q250,20 300,38 Q350,50 400,30 Q450,18 500,36 Q550,48 600,28 Q650,15 700,38 Q750,50 800,30 Q850,18 900,40 Q950,52 1000,32 Q1050,18 1100,38 Q1150,50 1200,30 L1200,0 Z' fill='white'/%3E%3C/svg%3E");
+  mask-size: 100% 100%;
+  mask-repeat: no-repeat;
+  z-index: 2;
+}
+
+.pubs-heading {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(240, 237, 232, 0.35);
+  margin-bottom: 50px;
+}
+
+.pubs-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr 0.8fr;
+  gap: 40px 60px;
+}
+
+.pub-item {
+  position: relative;
+  padding: 24px 0;
+  border-top: 1px solid rgba(240, 237, 232, 0.08);
+}
+
+.pub-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 24px;
+  font-weight: 300;
+  margin-bottom: 8px;
+  color: var(--off-white);
+}
+
+.pub-desc {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: rgba(240, 237, 232, 0.35);
+  line-height: 1.6;
+}
+
+.pub-count {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(240, 237, 232, 0.2);
+  margin-top: 12px;
+}
+
+
+/* ================================
+   SECTION 7: COLOPHON / FOOTER
+   ================================ */
+.colophon {
+  position: relative;
+  padding: 100px 8vw 50px;
+  background: var(--cream-dark);
+  background-image:
+    linear-gradient(168deg, transparent 0%, rgba(0,0,0,0.015) 40%, transparent 70%);
+  box-shadow:
+    inset 2px 2px 10px rgba(0,0,0,0.03);
+}
+
+.colophon-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 60px;
+  max-width: 1100px;
+}
+
+.colophon-section {
+  position: relative;
+}
+
+.colophon-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--warm-grey);
+  margin-bottom: 20px;
+}
+
+.colophon-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+}
+
+.colophon-text a {
+  border-bottom: 1px solid rgba(0,0,0,0.15);
+}
+
+.colophon-text a::after {
+  display: none;
+}
+
+.colophon-text a:hover {
+  border-bottom-color: var(--ink);
+}
+
+.colophon-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 60px;
+  margin-top: 60px;
+  border-top: 1px solid rgba(0,0,0,0.08);
+}
+
+.colophon-clock {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--warm-grey);
+}
+
+.colophon-copy {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--warm-grey);
+}
+
+/* crop marks bottom */
+.colophon-crop-bl {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  width: 20px;
+  height: 20px;
+  border-bottom: 1px solid rgba(0,0,0,0.15);
+  border-left: 1px solid rgba(0,0,0,0.15);
+}
+
+.colophon-crop-br {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  width: 20px;
+  height: 20px;
+  border-bottom: 1px solid rgba(0,0,0,0.15);
+  border-right: 1px solid rgba(0,0,0,0.15);
+}
+
+
+/* ================================
+   RESPONSIVE
+   ================================ */
+@media (max-width: 768px) {
+  .about-inner {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .about-number {
+    font-size: 48px;
+  }
+
+  .index-item {
+    grid-template-columns: 40px 1fr;
+    gap: 0;
+  }
+
+  .item-year {
+    grid-column: 2;
+    justify-self: start;
+    margin-top: 4px;
+    font-size: 9px;
+  }
+
+  .spread {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .spread::before {
+    display: none;
+  }
+
+  .spread-left {
+    padding: 60px 8vw;
+  }
+
+  .spread-right {
+    height: 50vh;
+  }
+
+  .pubs-grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .colophon-inner {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .pullquote {
+    margin-left: 0;
+  }
+
+  .pullquote-attr {
+    margin-left: 0;
+  }
+
+  .preview-float {
+    display: none;
+  }
+
+  .cover-stamp {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .cover-title {
+    font-size: 48px;
+  }
+
+  .index-heading {
+    font-size: 36px;
+  }
+
+  .spread-title {
+    font-size: 28px;
+  }
+
+  .colophon-bottom {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+}
+
+/* reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ============ COVER ============ -->
+<section class="cover" id="cover">
+  <div class="cover-clock" id="cover-clock"></div>
+  <div class="cover-meta">
+    Portfolio<br>
+    Selected Works<br>
+    2019 — Present
+  </div>
+  <div class="cover-stamp">Original</div>
+  <div class="cover-title" data-text="Selected Writing">Selected<br>Writing</div>
+  <div class="cover-subtitle">Essays &middot; Criticism &middot; Reportage</div>
+  <div class="cover-line"></div>
+  <div class="cover-description">
+    A collection of published work spanning personal essays, cultural criticism, long-form reportage, and editorial features.
+  </div>
+  <div class="scroll-cue">Scroll</div>
+</section>
+
+
+<!-- ============ ABOUT STRIP ============ -->
+<section class="about-strip">
+  <div class="about-inner">
+    <div>
+      <div class="about-label">About the Author</div>
+      <div class="about-number">§</div>
+    </div>
+    <div>
+      <div class="about-text">
+        A writer working across <em>personal essay, cultural criticism, and narrative nonfiction</em>. My work examines the quiet intersections of place, memory, and the objects we carry through our lives. Previously published in <em>The Paris Review, Granta, Harper's Magazine,</em> and <em>The Believer</em>.
+      </div>
+      <div class="about-meta-row">
+        <span>Brooklyn, NY</span>
+        <span>Represented by WME</span>
+        <span>MFA Columbia '18</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============ WORKS INDEX ============ -->
+<section class="index-section" id="works">
+  <div class="index-header">
+    <div class="index-heading">Selected Works</div>
+    <div class="index-count">12 Pieces / 2019–2025</div>
+  </div>
+  <div class="index-rule"></div>
+  <ul class="index-list" id="index-list">
+    <li class="index-item" data-img="https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=480&q=80">
+      <span class="item-num">001</span>
+      <div class="item-title-group">
+        <span class="item-title">The Cartography of Leaving</span>
+        <span class="item-pub">The Paris Review, Issue 248</span>
+      </div>
+      <span class="item-year">2025</span>
+    </li>
+    <li class="index-item" data-img="https://images.unsplash.com/photo-1519681393784-d120267933ba?w=480&q=80">
+      <span class="item-num">002</span>
+      <div class="item-title-group">
+        <span class="item-title">Altitude Sickness: Notes from the Edge of Somewhere</span>
+        <span class="item-pub">Granta 167 — Borders</span>
+      </div>
+      <span class="item-year">2024</span>
+    </li>
+    <li class="index-item" data-img="https://images.unsplash.com/photo-1495826797468-07a2df01869c?w=480&q=80">
+      <span class="item-num">003</span>
+      <div class="item-title-group">
+        <span class="item-title">What the River Forgets</span>
+        <span class="item-pub">Harper's Magazine</span>
+      </div>
+      <span class="item-year">2024</span>
+    </li>
+    <li class="index-item" data-img="https://images.unsplash.com/photo-1504711434969-e33886168d6c?w=480&q=80">
+      <span class="item-num">004</span>
+      <div class="item-title-group">
+        <span class="item-title">On Staying: A Refusal to Leave the Party</span>
+        <span class="item-pub">The Believer, Vol. 21 No. 3</span>
+      </div>
+      <span class="item-year">2023</span>
+    </li>
+    <li class="index-item" data-img="https://images.unsplash.com/photo-1532012197267-da84d127e765?w=480&q=80">
+      <span class="item-num">005</span>
+      <div class="item-title-group">
+        <span class="item-title">The Collected Silences of My Mother</span>
+        <span class="item-pub">Tin House — Memory Issue</span>
+      </div>
+      <span class="item-year">2023</span>
+    </li>
+    <li class="index-item" data-img="https://images.unsplash.com/photo-1461360228754-6e81c478b882?w=480&q=80">
+      <span class="item-num">006</span>
+      <div class="item-title-group">
+        <span class="item-title">Inventory of a Demolished House</span>
+        <span class="item-pub">The New York Times Magazine</span>
+      </div>
+      <span class="item-year">2022</span>
+    </li>
+    <li class="index-item" data-img="https://images.unsplash.com/photo-1476067897447-5a22e48a1462?w=480&q=80">
+      <span class="item-num">007</span>
+      <div class="item-title-group">
+        <span class="item-title">All the Funerals I Have Rehearsed</span>
+        <span class="item-pub">The Sewanee Review</span>
+      </div>
+      <span class="item-year">2022</span>
+    </li>
+    <li class="index-item" data-img="https://images.unsplash.com/photo-1473186505569-9c61870c11f9?w=480&q=80">
+      <span class="item-num">008</span>
+      <div class="item-title-group">
+        <span class="item-title">Fieldwork in Forgetting</span>
+        <span class="item-pub">Guernica</span>
+      </div>
+      <span class="item-year">2021</span>
+    </li>
+    <li class="index-item" data-img="https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=480&q=80">
+      <span class="item-num">009</span>
+      <div class="item-title-group">
+        <span class="item-title">The Museum of Small Failures</span>
+        <span class="item-pub">n+1 Magazine, Issue 42</span>
+      </div>
+      <span class="item-year">2021</span>
+    </li>
+    <li class="index-item" data-img="https://images.unsplash.com/photo-1455390582262-044cdead277a?w=480&q=80">
+      <span class="item-num">010</span>
+      <div class="item-title-group">
+        <span class="item-title">Against Arrival</span>
+        <span class="item-pub">The Point Magazine</span>
+      </div>
+      <span class="item-year">2020</span>
+    </li>
+    <li class="index-item" data-img="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=480&q=80">
+      <span class="item-num">011</span>
+      <div class="item-title-group">
+        <span class="item-title">The Weight of Light in December</span>
+        <span class="item-pub">The Yale Review</span>
+      </div>
+      <span class="item-year">2020</span>
+    </li>
+    <li class="index-item" data-img="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=480&q=80">
+      <span class="item-num">012</span>
+      <div class="item-title-group">
+        <span class="item-title">Notes Toward a Theory of Homesickness</span>
+        <span class="item-pub">Virginia Quarterly Review</span>
+      </div>
+      <span class="item-year">2019</span>
+    </li>
+  </ul>
+</section>
+
+
+<!-- ============ FEATURED SPREAD ============ -->
+<section class="spread">
+  <div class="spread-left">
+    <div class="spread-category">Featured Essay</div>
+    <h2 class="spread-title">The Cartography of Leaving</h2>
+    <p class="spread-excerpt">
+      "Every departure is a kind of draftsmanship — you are drawing boundaries around the life you're about to lose. I traced the edges of that apartment with my fingers the night before I left, the way a child traces a map they cannot yet read, following rivers that lead only to the margin of the page."
+    </p>
+    <div class="spread-date">The Paris Review — Issue 248 — Spring 2025</div>
+  </div>
+  <div class="spread-right">
+    <img class="spread-image" src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=900&q=80" alt="Library shelves receding into soft shadow, spines of old books creating a pattern of vertical lines and muted color">
+    <div class="spread-caption">Fig. 1 — The author's study, Brooklyn, 2024</div>
+  </div>
+</section>
+
+
+<!-- ============ PULL QUOTE ============ -->
+<section class="pullquote-section">
+  <blockquote class="pullquote">
+    Writing is the act of making the invisible visible — not by illumination, but by tracing the shape of what is absent.
+  </blockquote>
+  <div class="pullquote-attr">— From "Fieldwork in Forgetting," Guernica, 2021</div>
+</section>
+
+
+<!-- ============ PUBLICATIONS ============ -->
+<section class="pubs-section">
+  <div class="pubs-heading">Publications &amp; Outlets</div>
+  <div class="pubs-grid">
+    <div class="pub-item">
+      <div class="pub-name">The Paris Review</div>
+      <div class="pub-desc">Long-form personal essay and narrative nonfiction</div>
+      <div class="pub-count">3 pieces published</div>
+    </div>
+    <div class="pub-item">
+      <div class="pub-name">Granta</div>
+      <div class="pub-desc">Travel writing and border narratives</div>
+      <div class="pub-count">2 pieces published</div>
+    </div>
+    <div class="pub-item">
+      <div class="pub-name">Harper's</div>
+      <div class="pub-desc">Cultural criticism and reportage</div>
+      <div class="pub-count">2 pieces published</div>
+    </div>
+    <div class="pub-item">
+      <div class="pub-name">The Believer</div>
+      <div class="pub-desc">Personal essay and cultural observation</div>
+      <div class="pub-count">1 piece published</div>
+    </div>
+    <div class="pub-item">
+      <div class="pub-name">Tin House</div>
+      <div class="pub-desc">Memoir and family narrative</div>
+      <div class="pub-count">1 piece published</div>
+    </div>
+    <div class="pub-item">
+      <div class="pub-name">n+1</div>
+      <div class="pub-desc">Essays on failure, ambition, and the everyday</div>
+      <div class="pub-count">2 pieces published</div>
+    </div>
+    <div class="pub-item">
+      <div class="pub-name">NYT Magazine</div>
+      <div class="pub-desc">Feature reporting and personal essay</div>
+      <div class="pub-count">1 piece published</div>
+    </div>
+    <div class="pub-item">
+      <div class="pub-name">Guernica</div>
+      <div class="pub-desc">Essay on memory and place</div>
+      <div class="pub-count">1 piece published</div>
+    </div>
+    <div class="pub-item">
+      <div class="pub-name">The Sewanee Review</div>
+      <div class="pub-desc">Lyric essay and literary nonfiction</div>
+      <div class="pub-count">1 piece published</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============ COLOPHON ============ -->
+<section class="colophon">
+  <div class="colophon-inner">
+    <div class="colophon-section">
+      <div class="colophon-label">Contact</div>
+      <div class="colophon-text">
+        For commissions, reprints, or speaking inquiries —<br><br>
+        <a href="mailto:hello@example.com">hello@example.com</a>
+      </div>
+    </div>
+    <div class="colophon-section">
+      <div class="colophon-label">Representation</div>
+      <div class="colophon-text">
+        Literary representation by<br>
+        William Morris Endeavor<br><br>
+        <a href="mailto:agent@example.com">agent@example.com</a>
+      </div>
+    </div>
+    <div class="colophon-section">
+      <div class="colophon-label">Elsewhere</div>
+      <div class="colophon-text">
+        <a href="#">The Paris Review — Contributors</a><br>
+        <a href="#">Granta — Author Page</a><br>
+        <a href="#">Substack — Occasional Notes</a>
+      </div>
+    </div>
+  </div>
+  <div class="colophon-bottom">
+    <div class="colophon-clock" id="footer-clock"></div>
+    <div class="colophon-copy">&copy; 2025 — All rights reserved</div>
+  </div>
+  <div class="colophon-crop-bl"></div>
+  <div class="colophon-crop-br"></div>
+</section>
+
+
+<!-- Cursor-following preview -->
+<div class="preview-float" id="preview-float">
+  <img id="preview-img" src="" alt="Preview">
+</div>
+
+
+<script>
+(function() {
+  // === LIVE CLOCKS ===
+  function updateClocks() {
+    const now = new Date();
+    const h = String(now.getHours()).padStart(2, '0');
+    const m = String(now.getMinutes()).padStart(2, '0');
+    const s = String(now.getSeconds()).padStart(2, '0');
+    const time = h + ':' + m + ':' + s;
+
+    const coverClock = document.getElementById('cover-clock');
+    const footerClock = document.getElementById('footer-clock');
+    if (coverClock) coverClock.textContent = time;
+    if (footerClock) footerClock.textContent = time + ' — Local Time';
+  }
+  updateClocks();
+  setInterval(updateClocks, 1000);
+
+
+  // === CURSOR-FOLLOWING PREVIEW ON INDEX ITEMS ===
+  const previewFloat = document.getElementById('preview-float');
+  const previewImg = document.getElementById('preview-img');
+  const items = document.querySelectorAll('.index-item');
+  let currentItem = null;
+  let mouseX = 0;
+  let mouseY = 0;
+  let floatX = 0;
+  let floatY = 0;
+
+  items.forEach(function(item) {
+    item.addEventListener('mouseenter', function() {
+      const imgSrc = item.getAttribute('data-img');
+      if (imgSrc) {
+        previewImg.src = imgSrc;
+        previewFloat.classList.add('visible');
+        currentItem = item;
+      }
+    });
+
+    item.addEventListener('mouseleave', function() {
+      previewFloat.classList.remove('visible');
+      currentItem = null;
+    });
+  });
+
+  document.addEventListener('mousemove', function(e) {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+  });
+
+  function animateFloat() {
+    floatX += (mouseX - floatX) * 0.12;
+    floatY += (mouseY - floatY) * 0.12;
+    previewFloat.style.left = (floatX + 20) + 'px';
+    previewFloat.style.top = (floatY - 80) + 'px';
+    requestAnimationFrame(animateFloat);
+  }
+  animateFloat();
+
+
+  // === SUBTLE PARALLAX ON PAPER GRAIN ===
+  let scrollY = 0;
+  window.addEventListener('scroll', function() {
+    scrollY = window.pageYOffset;
+    document.body.style.setProperty('--scroll', scrollY + 'px');
+  }, { passive: true });
+
+})();
+</script>
+
+</body>
+</html>
