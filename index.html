@@ -1,1644 +1,365 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Writing Portfolio</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-<style>
-*, *::before, *::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-:root {
-  --cream: #F5F2EC;
-  --cream-dark: #EDE9E0;
-  --ink: #1A1A18;
-  --ink-soft: #2C2C2A;
-  --warm-grey: #8A8580;
-  --light-grey: #6B6660;
-  --red-accent: #C41E1E;
-  --blue-accent: #1B3F7A;
-  --off-white: #F0EDE8;
-  --kraft: #C4A97D;
-  --dark-surface: #1A1A18;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  background: var(--cream);
-  color: var(--ink);
-  font-family: 'Space Mono', monospace;
-  cursor: crosshair;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-}
-
-/* === PAPER GRAIN (mandatory) === */
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 10000;
-  opacity: 0.05;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-/* === SECONDARY GRAIN (different stock) === */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 9999;
-  opacity: 0.025;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n2'%3E%3CfeTurbulence type='turbulence' baseFrequency='1.2' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n2)'/%3E%3C/svg%3E");
-}
-
-/* === VINTAGE RUG WEAVE (overlaid on select sections) === */
-.rug-weave {
-  background-image:
-    repeating-linear-gradient(0deg, transparent 0px, transparent 2px, rgba(0,0,0,0.02) 2px, rgba(0,0,0,0.02) 3px, transparent 3px, transparent 5px),
-    repeating-linear-gradient(90deg, transparent 0px, transparent 2px, rgba(0,0,0,0.015) 2px, rgba(0,0,0,0.015) 3px, transparent 3px, transparent 5px),
-    repeating-linear-gradient(45deg, transparent 0px, transparent 3px, rgba(0,0,0,0.008) 3px, rgba(0,0,0,0.008) 4px),
-    repeating-linear-gradient(-45deg, transparent 0px, transparent 3px, rgba(0,0,0,0.008) 3px, rgba(0,0,0,0.008) 4px);
-}
-
-/* === RUFFLED/WAVY EDGE (like ruffled lampshade or gathered fabric) === */
-.ruffled {
-  position: relative;
-  clip-path: polygon(
-    0% 0%, 1% 2%, 2% 1%, 3% 3%, 4% 2%, 5% 4%, 6% 2%, 7% 3%, 8% 1%, 9% 3%, 10% 2%, 11% 4%, 12% 1%, 13% 3%, 14% 2%, 15% 4%, 16% 1%, 17% 3%, 18% 2%, 19% 4%, 20% 1%, 21% 3%, 22% 2%, 23% 4%, 24% 1%, 25% 3%, 26% 2%, 27% 4%, 28% 1%, 29% 3%, 30% 2%, 31% 4%, 32% 1%, 33% 3%, 34% 2%, 35% 4%, 36% 1%, 37% 3%, 38% 2%, 39% 4%, 40% 1%, 41% 3%, 42% 2%, 43% 4%, 44% 1%, 45% 3%, 46% 2%, 47% 4%, 48% 1%, 49% 3%, 50% 2%, 51% 4%, 52% 1%, 53% 3%, 54% 2%, 55% 4%, 56% 1%, 57% 3%, 58% 2%, 59% 4%, 60% 1%, 61% 3%, 62% 2%, 63% 4%, 64% 1%, 65% 3%, 66% 2%, 67% 4%, 68% 1%, 69% 3%, 70% 2%, 71% 4%, 72% 1%, 73% 3%, 74% 2%, 75% 4%, 76% 1%, 77% 3%, 78% 2%, 79% 4%, 80% 1%, 81% 3%, 82% 2%, 83% 4%, 84% 1%, 85% 3%, 86% 2%, 87% 4%, 88% 1%, 89% 3%, 90% 2%, 91% 4%, 92% 1%, 93% 3%, 94% 2%, 95% 4%, 96% 1%, 97% 3%, 98% 2%, 99% 4%, 100% 2%,
-    100% 100%, 99% 98%, 98% 99%, 97% 97%, 96% 98%, 95% 96%, 94% 98%, 93% 97%, 92% 99%, 91% 97%, 90% 98%, 89% 96%, 88% 99%, 87% 97%, 86% 98%, 85% 96%, 84% 99%, 83% 97%, 82% 98%, 81% 96%, 80% 99%, 79% 97%, 78% 98%, 77% 96%, 76% 99%, 75% 97%, 74% 98%, 73% 96%, 72% 99%, 71% 97%, 70% 98%, 69% 96%, 68% 99%, 67% 97%, 66% 98%, 65% 96%, 64% 99%, 63% 97%, 62% 98%, 61% 96%, 60% 99%, 59% 97%, 58% 98%, 57% 96%, 56% 99%, 55% 97%, 54% 98%, 53% 96%, 52% 99%, 51% 97%, 50% 98%, 49% 96%, 48% 99%, 47% 97%, 46% 98%, 45% 96%, 44% 99%, 43% 97%, 42% 98%, 41% 96%, 40% 99%, 39% 97%, 38% 98%, 37% 96%, 36% 99%, 35% 97%, 34% 98%, 33% 96%, 32% 99%, 31% 97%, 30% 98%, 29% 96%, 28% 99%, 27% 97%, 26% 98%, 25% 96%, 24% 99%, 23% 97%, 22% 98%, 21% 96%, 20% 99%, 19% 97%, 18% 98%, 17% 96%, 16% 99%, 15% 97%, 14% 98%, 13% 96%, 12% 99%, 11% 97%, 10% 98%, 9% 96%, 8% 99%, 7% 97%, 6% 98%, 5% 96%, 4% 99%, 3% 97%, 2% 98%, 1% 96%, 0% 98%
-  );
-}
-
-/* === WATER DAMAGE / WARPED TEXT === */
-.water-damaged {
-  filter: url(#water-warp);
-}
-
-/* === FOXING MARKS (age spots) === */
-.foxing {
-  position: relative;
-}
-
-.foxing::before {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  background-image:
-    radial-gradient(circle 18px at 12% 8%, rgba(139, 90, 43, 0.07) 0%, transparent 50%),
-    radial-gradient(circle 14px at 85% 15%, rgba(160, 110, 60, 0.06) 0%, transparent 50%),
-    radial-gradient(circle 10px at 25% 45%, rgba(120, 80, 40, 0.05) 0%, transparent 50%),
-    radial-gradient(circle 12px at 78% 72%, rgba(140, 95, 45, 0.06) 0%, transparent 50%),
-    radial-gradient(circle 16px at 42% 82%, rgba(130, 85, 35, 0.07) 0%, transparent 50%),
-    radial-gradient(circle 11px at 65% 38%, rgba(150, 100, 50, 0.05) 0%, transparent 50%);
-}
-
-/* === COFFEE RING / STAIN === */
-.coffee-stain {
-  position: relative;
-}
-
-.coffee-stain::after {
-  content: '';
-  position: absolute;
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, rgba(165, 110, 60, 0.08) 0%, rgba(140, 90, 45, 0.03) 40%, transparent 70%);
-  top: 20%;
-  right: 5%;
-  pointer-events: none;
-}
-
-/* === TORN/RIPPED COLLAGE ELEMENT === */
-.torn-collage {
-  position: relative;
-  clip-path: polygon(
-    0% 0%, 2% 1%, 5% 0%, 8% 2%, 12% 1%, 15% 0%, 18% 3%, 22% 2%, 25% 0%, 28% 1%, 32% 0%, 35% 2%, 38% 1%, 42% 0%, 45% 3%, 48% 1%, 52% 0%, 55% 2%, 58% 1%, 62% 0%, 65% 3%, 68% 1%, 72% 0%, 75% 2%, 78% 1%, 82% 0%, 85% 3%, 88% 1%, 92% 0%, 95% 2%, 98% 1%, 100% 0%,
-    100% 5%, 98% 8%, 100% 12%, 99% 15%, 100% 18%, 98% 22%, 100% 25%, 99% 28%, 100% 32%, 98% 35%, 100% 38%, 99% 42%, 100% 45%, 98% 48%, 100% 52%, 99% 55%, 100% 58%, 98% 62%, 100% 65%, 99% 68%, 100% 72%, 98% 75%, 100% 78%, 99% 82%, 100% 85%, 98% 88%, 100% 92%, 99% 95%, 100% 98%, 100% 100%,
-    98% 100%, 95% 98%, 92% 100%, 88% 99%, 85% 100%, 82% 98%, 78% 100%, 75% 99%, 72% 100%, 68% 98%, 65% 100%, 62% 99%, 58% 100%, 55% 98%, 52% 100%, 48% 99%, 45% 100%, 42% 98%, 38% 100%, 35% 99%, 32% 100%, 28% 98%, 25% 100%, 22% 99%, 18% 100%, 15% 98%, 12% 100%, 8% 99%, 5% 100%, 2% 99%, 0% 100%,
-    0% 95%, 2% 92%, 0% 88%, 1% 85%, 0% 82%, 2% 78%, 0% 75%, 1% 72%, 0% 68%, 2% 65%, 0% 62%, 1% 58%, 0% 55%, 2% 52%, 0% 48%, 1% 45%, 0% 42%, 2% 38%, 0% 35%, 1% 32%, 0% 28%, 2% 25%, 0% 22%, 1% 18%, 0% 15%, 2% 12%, 0% 8%, 1% 5%, 0% 2%
-  );
-}
-
-/* === OVERLAPPING SEMI-TRANSPARENT LAYERS === */
-.layered {
-  position: relative;
-  background: linear-gradient(
-    125deg,
-    rgba(255, 255, 255, 0.3) 0%,
-    rgba(255, 255, 255, 0.05) 50%,
-    transparent 100%
-  );
-}
-
-/* === CONTACT SHEET / FRAME MARKS === */
-.contact-sheet {
-  position: relative;
-  border: 2px solid rgba(0,0,0,0.1);
-  box-shadow:
-    inset 0 0 0 8px var(--cream),
-    inset 0 0 0 10px rgba(0,0,0,0.08);
-}
-
-.contact-sheet::before {
-  content: '';
-  position: absolute;
-  top: -20px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60%;
-  height: 4px;
-  background: repeating-linear-gradient(
-    90deg,
-    rgba(0,0,0,0.15) 0px,
-    rgba(0,0,0,0.15) 2px,
-    transparent 2px,
-    transparent 8px
-  );
-}
-
-.contact-sheet::after {
-  content: '';
-  position: absolute;
-  bottom: -20px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60%;
-  height: 4px;
-  background: repeating-linear-gradient(
-    90deg,
-    rgba(0,0,0,0.15) 0px,
-    rgba(0,0,0,0.15) 2px,
-    transparent 2px,
-    transparent 8px
-  );
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-  cursor: pointer;
-  position: relative;
-}
-
-a::after {
-  content: '';
-  position: absolute;
-  bottom: -1px;
-  left: 0;
-  width: 0;
-  height: 1px;
-  background: var(--ink);
-  transition: width 600ms ease-out;
-}
-
-a:hover::after {
-  width: 100%;
-}
-
-/* ================================
-   SECTION 1: COLD OPEN / COVER
-   ================================ */
-.cover {
-  min-height: 100vh;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 0 5vw 6vh 8vw;
-  background:
-    linear-gradient(175deg, transparent 0%, rgba(0,0,0,0.018) 22%, transparent 42%, rgba(0,0,0,0.012) 65%, transparent 88%),
-    linear-gradient(95deg, transparent 0%, rgba(0,0,0,0.025) 32%, transparent 52%, rgba(0,0,0,0.008) 78%, transparent 100%),
-    linear-gradient(35deg, transparent 0%, rgba(0,0,0,0.006) 30%, transparent 60%);
-  box-shadow:
-    inset 4px 5px 18px rgba(0,0,0,0.05),
-    inset -3px -2px 12px rgba(0,0,0,0.03),
-    inset 0 80px 60px -40px rgba(0,0,0,0.015);
-  overflow: hidden;
-}
-
-/* CREASED/WRINKLED COVER with fold marks */
-.cover::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  background: linear-gradient(to bottom,
-    transparent 0%,
-    rgba(0,0,0,0.08) 25%,
-    rgba(0,0,0,0.12) 50%,
-    rgba(0,0,0,0.08) 75%,
-    transparent 100%
-  );
-  box-shadow:
-    8px 0 12px rgba(0,0,0,0.05),
-    -2px 0 4px rgba(255,255,255,0.1);
-  z-index: 1;
-}
-
-/* crop marks on cover */
-.cover-crop-marks {
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  border: 1px solid rgba(0,0,0,0.16);
-  z-index: 2;
-}
-
-.cover-crop-tl {
-  top: 24px;
-  left: 24px;
-  border-right: none;
-  border-bottom: none;
-}
-
-.cover-crop-tr {
-  top: 24px;
-  right: 24px;
-  border-left: none;
-  border-bottom: none;
-}
-
-.cover-crop-bl {
-  bottom: 24px;
-  left: 24px;
-  border-right: none;
-  border-top: none;
-}
-
-.cover-crop-br {
-  bottom: 24px;
-  right: 24px;
-  border-left: none;
-  border-top: none;
-}
-
-.cover-meta {
-  position: absolute;
-  top: 32px;
-  right: 72px;
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--warm-grey);
-  line-height: 1.8;
-}
-
-.cover-clock {
-  position: absolute;
-  top: 32px;
-  left: 72px;
-  font-size: 10px;
-  font-family: 'Space Mono', monospace;
-  letter-spacing: 0.15em;
-  color: var(--warm-grey);
-}
-
-.cover-stamp {
-  position: absolute;
-  top: 38%;
-  right: 8vw;
-  transform: rotate(-12deg);
-  font-family: 'Space Mono', monospace;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  color: var(--red-accent);
-  border: 2px solid var(--red-accent);
-  padding: 6px 14px;
-  opacity: 0.55;
-  border-radius: 2px;
-}
-
-.cover-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-weight: 300;
-  font-size: clamp(64px, 12vw, 200px);
-  line-height: 0.88;
-  letter-spacing: -0.03em;
-  color: var(--ink);
-  margin-bottom: 24px;
-  position: relative;
-  z-index: 1;
-  /* ink bleed + registration */
-  text-shadow:
-    0.7px 0.5px 0 rgba(0,0,0,0.25),
-    -0.4px 0.3px 0 rgba(0,0,0,0.12),
-    1.5px 1px 0 rgba(0, 160, 180, 0.08),
-    -0.5px -0.5px 0 rgba(200, 0, 80, 0.07),
-    0 0 4px rgba(0,0,0,0.05);
-  transform: skewX(-0.5deg) scaleY(1.01);
-}
-
-/* double-strike registration error on title */
-.cover-title::before {
-  content: attr(data-text);
-  position: absolute;
-  left: 1.8px;
-  top: 1.2px;
-  color: rgba(0, 160, 180, 0.085);
-  z-index: -1;
-}
-
-.cover-title::after {
-  content: attr(data-text);
-  position: absolute;
-  left: -0.6px;
-  top: -0.6px;
-  color: rgba(200, 0, 80, 0.06);
-  z-index: -1;
-}
-
-.cover-subtitle {
-  font-family: 'Space Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--warm-grey);
-  margin-bottom: 12px;
-}
-
-.cover-line {
-  width: 60px;
-  height: 1px;
-  background: var(--ink);
-  opacity: 0.3;
-  margin-bottom: 16px;
-}
-
-.cover-description {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 16px;
-  color: var(--light-grey);
-  max-width: 380px;
-  line-height: 1.6;
-}
-
-/* scroll indicator */
-.scroll-cue {
-  position: absolute;
-  bottom: 24px;
-  right: 5vw;
-  font-size: 9px;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--warm-grey);
-  writing-mode: vertical-rl;
-  animation: drift 3s ease-in-out infinite;
-}
-
-@keyframes drift {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(6px); }
-}
-
-
-/* ================================
-   SECTION 2: ABOUT STRIP (DARK LINEN)
-   ================================ */
-.about-strip {
-  position: relative;
-  background: var(--dark-surface);
-  color: var(--off-white);
-  padding: 100px 8vw 110px;
-  /* dense linen weave + fabric texture */
-  background-image:
-    repeating-linear-gradient(0deg, transparent, transparent 1.5px, rgba(255,255,255,0.015) 1.5px, rgba(255,255,255,0.015) 2.5px),
-    repeating-linear-gradient(90deg, transparent, transparent 1.5px, rgba(255,255,255,0.015) 1.5px, rgba(255,255,255,0.015) 2.5px),
-    repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(255,255,255,0.006) 2px, rgba(255,255,255,0.006) 3px),
-    repeating-linear-gradient(-45deg, transparent, transparent 2px, rgba(255,255,255,0.006) 2px, rgba(255,255,255,0.006) 3px);
-  background-color: var(--dark-surface);
-  box-shadow:
-    inset 0 40px 60px rgba(0,0,0,0.3),
-    inset 0 -40px 60px rgba(0,0,0,0.2);
-  clip-path: polygon(
-    0 0, 100% 0, 100% calc(100% - 2%), 99.5% calc(100% - 1%), 99% calc(100% - 3%), 98.5% calc(100% - 2%), 98% calc(100% - 4%), 97.5% calc(100% - 1%), 97% calc(100% - 3%), 96.5% calc(100% - 2%), 96% calc(100% - 4%), 95.5% calc(100% - 2%), 95% calc(100% - 3%), 94.5% calc(100% - 1%), 94% calc(100% - 4%), 93.5% calc(100% - 2%), 93% calc(100% - 3%), 92.5% calc(100% - 1%), 92% calc(100% - 4%), 91.5% calc(100% - 2%), 91% calc(100% - 3%), 90.5% calc(100% - 1%), 90% calc(100% - 4%), 89.5% calc(100% - 2%), 89% calc(100% - 3%), 88.5% calc(100% - 1%), 88% calc(100% - 4%), 87.5% calc(100% - 2%), 87% calc(100% - 3%), 86.5% calc(100% - 1%), 86% calc(100% - 4%), 85.5% calc(100% - 2%), 85% calc(100% - 3%), 84.5% calc(100% - 1%), 84% calc(100% - 4%), 83.5% calc(100% - 2%), 83% calc(100% - 3%), 82.5% calc(100% - 1%), 82% calc(100% - 4%), 81.5% calc(100% - 2%), 81% calc(100% - 3%), 80.5% calc(100% - 1%), 80% calc(100% - 4%), 79.5% calc(100% - 2%), 79% calc(100% - 3%), 78.5% calc(100% - 1%), 78% calc(100% - 4%), 77.5% calc(100% - 2%), 77% calc(100% - 3%), 76.5% calc(100% - 1%), 76% calc(100% - 4%), 75.5% calc(100% - 2%), 75% calc(100% - 3%), 74.5% calc(100% - 1%), 74% calc(100% - 4%), 73.5% calc(100% - 2%), 73% calc(100% - 3%), 72.5% calc(100% - 1%), 72% calc(100% - 4%), 71.5% calc(100% - 2%), 71% calc(100% - 3%), 70.5% calc(100% - 1%), 70% calc(100% - 4%), 69.5% calc(100% - 2%), 69% calc(100% - 3%), 68.5% calc(100% - 1%), 68% calc(100% - 4%), 67.5% calc(100% - 2%), 67% calc(100% - 3%), 66.5% calc(100% - 1%), 66% calc(100% - 4%), 65.5% calc(100% - 2%), 65% calc(100% - 3%), 64.5% calc(100% - 1%), 64% calc(100% - 4%), 63.5% calc(100% - 2%), 63% calc(100% - 3%), 62.5% calc(100% - 1%), 62% calc(100% - 4%), 61.5% calc(100% - 2%), 61% calc(100% - 3%), 60.5% calc(100% - 1%), 60% calc(100% - 4%), 59.5% calc(100% - 2%), 59% calc(100% - 3%), 58.5% calc(100% - 1%), 58% calc(100% - 4%), 57.5% calc(100% - 2%), 57% calc(100% - 3%), 56.5% calc(100% - 1%), 56% calc(100% - 4%), 55.5% calc(100% - 2%), 55% calc(100% - 3%), 54.5% calc(100% - 1%), 54% calc(100% - 4%), 53.5% calc(100% - 2%), 53% calc(100% - 3%), 52.5% calc(100% - 1%), 52% calc(100% - 4%), 51.5% calc(100% - 2%), 51% calc(100% - 3%), 50.5% calc(100% - 1%), 50% calc(100% - 4%), 49.5% calc(100% - 2%), 49% calc(100% - 3%), 48.5% calc(100% - 1%), 48% calc(100% - 4%), 47.5% calc(100% - 2%), 47% calc(100% - 3%), 46.5% calc(100% - 1%), 46% calc(100% - 4%), 45.5% calc(100% - 2%), 45% calc(100% - 3%), 44.5% calc(100% - 1%), 44% calc(100% - 4%), 43.5% calc(100% - 2%), 43% calc(100% - 3%), 42.5% calc(100% - 1%), 42% calc(100% - 4%), 41.5% calc(100% - 2%), 41% calc(100% - 3%), 40.5% calc(100% - 1%), 40% calc(100% - 4%), 39.5% calc(100% - 2%), 39% calc(100% - 3%), 38.5% calc(100% - 1%), 38% calc(100% - 4%), 37.5% calc(100% - 2%), 37% calc(100% - 3%), 36.5% calc(100% - 1%), 36% calc(100% - 4%), 35.5% calc(100% - 2%), 35% calc(100% - 3%), 34.5% calc(100% - 1%), 34% calc(100% - 4%), 33.5% calc(100% - 2%), 33% calc(100% - 3%), 32.5% calc(100% - 1%), 32% calc(100% - 4%), 31.5% calc(100% - 2%), 31% calc(100% - 3%), 30.5% calc(100% - 1%), 30% calc(100% - 4%), 29.5% calc(100% - 2%), 29% calc(100% - 3%), 28.5% calc(100% - 1%), 28% calc(100% - 4%), 27.5% calc(100% - 2%), 27% calc(100% - 3%), 26.5% calc(100% - 1%), 26% calc(100% - 4%), 25.5% calc(100% - 2%), 25% calc(100% - 3%), 24.5% calc(100% - 1%), 24% calc(100% - 4%), 23.5% calc(100% - 2%), 23% calc(100% - 3%), 22.5% calc(100% - 1%), 22% calc(100% - 4%), 21.5% calc(100% - 2%), 21% calc(100% - 3%), 20.5% calc(100% - 1%), 20% calc(100% - 4%), 19.5% calc(100% - 2%), 19% calc(100% - 3%), 18.5% calc(100% - 1%), 18% calc(100% - 4%), 17.5% calc(100% - 2%), 17% calc(100% - 3%), 16.5% calc(100% - 1%), 16% calc(100% - 4%), 15.5% calc(100% - 2%), 15% calc(100% - 3%), 14.5% calc(100% - 1%), 14% calc(100% - 4%), 13.5% calc(100% - 2%), 13% calc(100% - 3%), 12.5% calc(100% - 1%), 12% calc(100% - 4%), 11.5% calc(100% - 2%), 11% calc(100% - 3%), 10.5% calc(100% - 1%), 10% calc(100% - 4%), 9.5% calc(100% - 2%), 9% calc(100% - 3%), 8.5% calc(100% - 1%), 8% calc(100% - 4%), 7.5% calc(100% - 2%), 7% calc(100% - 3%), 6.5% calc(100% - 1%), 6% calc(100% - 4%), 5.5% calc(100% - 2%), 5% calc(100% - 3%), 4.5% calc(100% - 1%), 4% calc(100% - 4%), 3.5% calc(100% - 2%), 3% calc(100% - 3%), 2.5% calc(100% - 1%), 2% calc(100% - 4%), 1.5% calc(100% - 2%), 1% calc(100% - 3%), 0.5% calc(100% - 1%), 0 100%
-  );
-}
-
-
-.about-inner {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 60px;
-  align-items: start;
-  max-width: 1100px;
-}
-
-.about-label {
-  font-family: 'Space Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: rgba(240, 237, 232, 0.4);
-  margin-bottom: 20px;
-}
-
-.about-number {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 72px;
-  font-weight: 300;
-  line-height: 1;
-  color: rgba(240, 237, 232, 0.08);
-  /* embossed */
-  text-shadow:
-    0 1px 0 rgba(255,255,255,0.06),
-    0 -1px 0 rgba(0,0,0,0.4);
-}
-
-.about-text {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 20px;
-  font-weight: 300;
-  line-height: 1.7;
-  color: var(--off-white);
-  max-width: 580px;
-}
-
-.about-text em {
-  font-style: italic;
-  color: rgba(240, 237, 232, 0.8);
-  position: relative;
-  /* slight offset for handwritten feel */
-  transform: skewX(-1deg) scaleY(0.98);
-}
-
-.about-meta-row {
-  display: flex;
-  gap: 40px;
-  margin-top: 36px;
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: rgba(240, 237, 232, 0.35);
-}
-
-.about-meta-row span {
-  position: relative;
-  padding-left: 16px;
-}
-
-.about-meta-row span::before {
-  content: '—';
-  position: absolute;
-  left: 0;
-}
-
-
-/* ================================
-   SECTION 3: WORKS INDEX / LEDGER
-   ================================ */
-.index-section {
-  position: relative;
-  padding: 120px 0 100px;
-  background:
-    linear-gradient(165deg, transparent 0%, rgba(0,0,0,0.015) 28%, transparent 58%, rgba(0,0,0,0.018) 82%, transparent 100%),
-    linear-gradient(85deg, transparent 0%, rgba(0,0,0,0.01) 40%, transparent 70%);
-  /* vintage newsprint with rug weave */
-  background-color: #EFE9E0;
-  /* dense crosshatch fabric pattern */
-  background-image:
-    repeating-linear-gradient(0deg, transparent, transparent 2.5px, rgba(0,0,0,0.012) 2.5px, rgba(0,0,0,0.012) 3.5px),
-    repeating-linear-gradient(90deg, transparent, transparent 2.5px, rgba(0,0,0,0.012) 2.5px, rgba(0,0,0,0.012) 3.5px),
-    repeating-linear-gradient(45deg, transparent, transparent 3.5px, rgba(0,0,0,0.008) 3.5px, rgba(0,0,0,0.008) 4px),
-    repeating-linear-gradient(-45deg, transparent, transparent 3.5px, rgba(0,0,0,0.008) 3.5px, rgba(0,0,0,0.008) 4px);
-  box-shadow:
-    inset 0 50px 80px rgba(0,0,0,0.08),
-    inset 0 -50px 80px rgba(0,0,0,0.06);
-}
-
-.index-header {
-  padding: 0 8vw;
-  margin-bottom: 60px;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  position: relative;
-  z-index: 2;
-}
-
-.index-heading {
-  font-family: 'Inter', sans-serif;
-  font-weight: 900;
-  font-size: clamp(48px, 7vw, 120px);
-  line-height: 0.9;
-  letter-spacing: -0.04em;
-  text-transform: uppercase;
-  /* ink bleed */
-  text-shadow:
-    0.6px 0.4px 0 rgba(0,0,0,0.22),
-    -0.3px 0.3px 0 rgba(0,0,0,0.1),
-    0 0 4px rgba(0,0,0,0.03);
-  position: relative;
-}
-
-/* misregistration */
-.index-heading::before {
-  content: 'Selected Works';
-  position: absolute;
-  left: 2px;
-  top: 1px;
-  color: rgba(0, 160, 180, 0.08);
-  z-index: -1;
-}
-
-.index-count {
-  font-family: 'Space Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--warm-grey);
-  padding-bottom: 8px;
-}
-
-/* hairline */
-.index-rule {
-  height: 1px;
-  background: var(--ink);
-  opacity: 0.15;
-  margin: 0 8vw 0;
-  position: relative;
-  z-index: 2;
-}
-
-/* index list */
-.index-list {
-  list-style: none;
-  position: relative;
-  z-index: 2;
-}
-
-.index-item {
-  display: grid;
-  grid-template-columns: 60px 1fr auto;
-  gap: 0;
-  align-items: baseline;
-  padding: 20px 8vw;
-  border-bottom: 1px solid rgba(0,0,0,0.05);
-  transition: all 450ms ease-out;
-  cursor: pointer;
-  position: relative;
-  background: linear-gradient(90deg, rgba(0,0,0,0.005) 0%, transparent 20%, transparent 80%, rgba(0,0,0,0.003) 100%);
-  /* subtle paper wrinkle on hover */
-  overflow: hidden;
-}
-
-.index-item::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(95deg, rgba(255,255,255,0.3) 0%, transparent 40%);
-  opacity: 0;
-  transition: opacity 400ms ease-out;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.index-item:hover::before {
-  opacity: 0.08;
-}
-
-.index-item:hover {
-  background-color: rgba(0,0,0,0.035);
-  box-shadow: inset 0 2px 8px rgba(0,0,0,0.05);
-  transform: scaleY(1.02);
-}
-
-.index-item:hover .item-title {
-  font-style: italic;
-  letter-spacing: -0.005em;
-}
-
-.item-num {
-  font-family: 'Space Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  color: var(--warm-grey);
-}
-
-.item-title-group {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.item-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 22px;
-  font-weight: 400;
-  letter-spacing: -0.01em;
-  transition: all 400ms ease-out;
-  line-height: 1.3;
-  position: relative;
-  z-index: 1;
-  /* subtle ink bleed on hover */
-  text-shadow: none;
-}
-
-.index-item:hover .item-title {
-  text-shadow:
-    0.3px 0.2px 0 rgba(0,0,0,0.1);
-}
-
-.item-pub {
-  font-family: 'Space Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--warm-grey);
-}
-
-.item-year {
-  font-family: 'Space Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  color: var(--light-grey);
-  justify-self: end;
-}
-
-/* cursor-following preview image */
-.preview-float {
-  position: fixed;
-  width: 260px;
-  height: 180px;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 250ms ease-out;
-  z-index: 100;
-  /* scan treatment with visible rotation and shadow */
-  transform: rotate(-2.1deg) translateZ(0);
-  box-shadow:
-    5px 6px 20px rgba(0,0,0,0.18),
-    8px 10px 30px rgba(0,0,0,0.12),
-    0 0 0 1px rgba(0,0,0,0.06),
-    inset 0 1px 2px rgba(255,255,255,0.15);
-  overflow: hidden;
-  /* subtle washi tape corner */
-}
-
-.preview-float.visible {
-  opacity: 1;
-}
-
-.preview-float img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: saturate(0.65) contrast(1.12) brightness(0.96) grayscale(8%);
-}
-
-/* halftone newsprint dots on image */
-.preview-float::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(circle, rgba(0,0,0,0.5) 0.35px, transparent 0.35px);
-  background-size: 3px 3px;
-  opacity: 0.05;
-  pointer-events: none;
-  z-index: 3;
-}
-
-/* tape holding the image */
-.preview-float::before {
-  content: '';
-  position: absolute;
-  top: -8px;
-  left: 50%;
-  transform: translateX(-50%) rotate(-3deg);
-  width: 100px;
-  height: 28px;
-  background: rgba(210, 190, 150, 0.48);
-  border: 1px solid rgba(180, 160, 120, 0.25);
-  z-index: 5;
-  box-shadow:
-    inset 0 1px 1px rgba(255,255,255,0.3),
-    inset 0 -1px 1px rgba(0,0,0,0.1);
-}
-
-
-/* ================================
-   SECTION 4: FEATURED SPREAD (MAGAZINE FACING PAGES)
-   ================================ */
-.spread {
-  position: relative;
-  display: grid;
-  grid-template-columns: 55% 45%;
-  min-height: 85vh;
-  overflow: hidden;
-  background: #F5EFE6;
-}
-
-/* center fold crease — deep, lived-in */
-.spread::before {
-  content: '';
-  position: absolute;
-  left: 55%;
-  top: 0;
-  bottom: 0;
-  width: 3px;
-  background: linear-gradient(to bottom,
-    transparent 0%,
-    rgba(0,0,0,0.12) 15%,
-    rgba(0,0,0,0.18) 35%,
-    rgba(0,0,0,0.14) 50%,
-    rgba(0,0,0,0.18) 65%,
-    rgba(0,0,0,0.12) 85%,
-    transparent 100%
-  );
-  box-shadow:
-    -6px 0 12px rgba(0,0,0,0.08),
-    6px 0 12px rgba(0,0,0,0.08),
-    inset 0 0 2px rgba(255,255,255,0.4);
-  z-index: 3;
-}
-
-/* outer crease shadow */
-.spread::after {
-  content: '';
-  position: absolute;
-  left: 55%;
-  top: 0;
-  bottom: 0;
-  width: 20px;
-  background: linear-gradient(90deg, rgba(0,0,0,0.06) 0%, transparent 100%);
-  z-index: 2;
-}
-
-.spread-left {
-  position: relative;
-  background: #E9E2D8;
-  padding: 90px 70px 90px 8vw;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  /* warm aged paper with subtle crease patterns */
-  background-image:
-    linear-gradient(168deg, transparent 0%, rgba(140, 100, 50, 0.015) 35%, transparent 65%),
-    linear-gradient(92deg, transparent 0%, rgba(160, 120, 70, 0.01) 45%, transparent 80%),
-    repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(0,0,0,0.002) 40px, rgba(0,0,0,0.002) 41px);
-  background-color: #E9E2D8;
-  box-shadow:
-    inset 6px 6px 20px rgba(0,0,0,0.04),
-    inset -3px -3px 12px rgba(0,0,0,0.025),
-    inset 0 1px 2px rgba(255,255,255,0.15);
-  z-index: 1;
-}
-
-/* multiple foxing marks (age spots) scattered across */
-.spread-left::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-image:
-    radial-gradient(circle 22px at 12% 18%, rgba(139, 90, 43, 0.08) 0%, transparent 50%),
-    radial-gradient(circle 16px at 88% 25%, rgba(160, 110, 60, 0.06) 0%, transparent 50%),
-    radial-gradient(circle 12px at 28% 52%, rgba(120, 80, 40, 0.05) 0%, transparent 50%),
-    radial-gradient(circle 14px at 75% 68%, rgba(140, 95, 45, 0.07) 0%, transparent 50%),
-    radial-gradient(circle 18px at 45% 78%, rgba(130, 85, 35, 0.08) 0%, transparent 50%),
-    radial-gradient(circle 13px at 68% 42%, rgba(150, 100, 50, 0.06) 0%, transparent 50%);
-  z-index: 1;
-}
-
-.spread-left::after {
-  content: '';
-  position: absolute;
-  top: 22%;
-  right: 10%;
-  width: 140px;
-  height: 140px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, rgba(165, 110, 60, 0.12) 0%, rgba(140, 90, 45, 0.04) 45%, transparent 75%);
-  pointer-events: none;
-  z-index: 1;
-}
-
-.spread-category {
-  font-family: 'Space Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--red-accent);
-  margin-bottom: 28px;
-  opacity: 0.75;
-  position: relative;
-  z-index: 2;
-  text-transform: uppercase;
-  word-spacing: 0.3em;
-}
-
-.spread-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-weight: 300;
-  font-size: clamp(36px, 5vw, 72px);
-  line-height: 1.05;
-  letter-spacing: -0.02em;
-  margin-bottom: 40px;
-  position: relative;
-  z-index: 2;
-  text-shadow:
-    0.5px 0.4px 0 rgba(0,0,0,0.18),
-    -0.2px 0.2px 0 rgba(0,0,0,0.08),
-    0 0 3px rgba(0,0,0,0.04);
-}
-
-.spread-excerpt {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 17px;
-  line-height: 1.8;
-  color: var(--ink-soft);
-  max-width: 460px;
-  margin-bottom: 50px;
-  position: relative;
-  z-index: 2;
-}
-
-.spread-date {
-  font-family: 'Space Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.15em;
-  color: var(--warm-grey);
-  position: relative;
-  z-index: 2;
-}
-
-.spread-right {
-  position: relative;
-  background: linear-gradient(135deg, #F5F2EC 0%, #F0EDE8 100%);
-  overflow: hidden;
-  background-image:
-    linear-gradient(135deg, transparent 0%, rgba(0,0,0,0.02) 50%, transparent 100%);
-  background-color: #F2EFE8;
-}
-
-.spread-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: saturate(0.62) contrast(1.1) brightness(0.97) grayscale(5%);
-  /* visible scan rotation */
-  transform: rotate(0.8deg) scale(1.025);
-}
-
-/* washi tape holding image (top left, at angle) */
-.spread-right::before {
-  content: '';
-  position: absolute;
-  top: 35px;
-  left: 28px;
-  transform: rotate(-8deg);
-  width: 110px;
-  height: 32px;
-  background: linear-gradient(90deg, rgba(220, 190, 150, 0.52) 0%, rgba(210, 180, 140, 0.48) 100%);
-  border: 1px solid rgba(180, 160, 120, 0.28);
-  z-index: 4;
-  box-shadow:
-    inset 0 1px 2px rgba(255,255,255,0.35),
-    inset 0 -1px 1px rgba(0,0,0,0.12),
-    2px 3px 6px rgba(0,0,0,0.08);
-}
-
-/* halftone newsprint on image */
-.spread-right::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(circle, rgba(0,0,0,0.55) 0.32px, transparent 0.32px);
-  background-size: 3.5px 3.5px;
-  opacity: 0.045;
-  pointer-events: none;
-  z-index: 3;
-}
-
-/* gallery caption below image */
-.spread-caption {
-  position: absolute;
-  bottom: 40px;
-  left: 40px;
-  font-family: 'Space Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: rgba(0,0,0,0.45);
-  z-index: 5;
-  background: rgba(255,255,255,0.7);
-  padding: 8px 14px;
-  border: 1px solid rgba(0,0,0,0.08);
-  line-height: 1.6;
-}
-
-
-/* ================================
-   SECTION 5: PULL QUOTE (POSTER-LIKE TYPOGRAPHY)
-   ================================ */
-.pullquote-section {
-  position: relative;
-  padding: 140px 8vw;
-  text-align: left;
-  background:
-    linear-gradient(165deg, transparent 0%, rgba(0,0,0,0.018) 35%, transparent 65%, rgba(0,0,0,0.012) 85%, transparent 100%);
-  background-color: #F3EFE7;
-  box-shadow:
-    inset 0 50px 80px rgba(0,0,0,0.06),
-    inset 0 -50px 80px rgba(0,0,0,0.04);
-  /* subtle crosshatch */
-  background-image:
-    repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.006) 3px, rgba(0,0,0,0.006) 4px),
-    repeating-linear-gradient(90deg, transparent, transparent 3px, rgba(0,0,0,0.006) 3px, rgba(0,0,0,0.006) 4px);
-  background-color: #F3EFE7;
-}
-
-.pullquote {
-  font-family: 'Cormorant Garamond', serif;
-  font-weight: 300;
-  font-style: italic;
-  font-size: clamp(28px, 4.8vw, 68px);
-  line-height: 1.25;
-  letter-spacing: -0.012em;
-  max-width: 950px;
-  margin-left: 8vw;
-  color: var(--ink);
-  position: relative;
-  z-index: 1;
-  /* letterpress + ink bleed */
-  text-shadow:
-    0.4px 0.3px 0 rgba(0,0,0,0.15),
-    0 1px 0 rgba(255,255,255,0.3),
-    0 -1px 0 rgba(0,0,0,0.06);
-}
-
-.pullquote::before {
-  content: '\201C';
-  position: absolute;
-  left: -0.75em;
-  top: -0.2em;
-  font-size: 1.8em;
-  font-style: normal;
-  color: var(--red-accent);
-  opacity: 0.25;
-}
-
-.pullquote-attr {
-  font-family: 'Space Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--warm-grey);
-  margin-top: 28px;
-  margin-left: 10vw;
-}
-
-
-/* ================================
-   SECTION 6: PUBLICATIONS GRID (DARK CATALOG)
-   ================================ */
-.pubs-section {
-  position: relative;
-  background: var(--dark-surface);
-  color: var(--off-white);
-  padding: 120px 8vw 140px;
-  background-image:
-    repeating-linear-gradient(0deg, transparent, transparent 1.8px, rgba(255,255,255,0.016) 1.8px, rgba(255,255,255,0.016) 2.8px),
-    repeating-linear-gradient(90deg, transparent, transparent 1.8px, rgba(255,255,255,0.016) 1.8px, rgba(255,255,255,0.016) 2.8px),
-    repeating-linear-gradient(45deg, transparent, transparent 2.5px, rgba(255,255,255,0.008) 2.5px, rgba(255,255,255,0.008) 3px),
-    repeating-linear-gradient(-45deg, transparent, transparent 2.5px, rgba(255,255,255,0.008) 2.5px, rgba(255,255,255,0.008) 3px);
-  background-color: var(--dark-surface);
-  box-shadow:
-    inset 0 30px 50px rgba(0,0,0,0.5),
-    inset 0 -30px 50px rgba(0,0,0,0.3);
-}
-
-.pubs-heading {
-  font-family: 'Space Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: rgba(240, 237, 232, 0.35);
-  margin-bottom: 50px;
-}
-
-.pubs-grid {
-  display: grid;
-  grid-template-columns: 1.3fr 1fr 0.8fr;
-  gap: 40px 60px;
-}
-
-.pub-item {
-  position: relative;
-  padding: 28px 0;
-  border-top: 1px solid rgba(240, 237, 232, 0.06);
-  transition: all 400ms ease-out;
-}
-
-.pub-item:hover {
-  background: rgba(255,255,255,0.03);
-  padding-left: 12px;
-  padding-right: -12px;
-}
-
-.pub-name {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 24px;
-  font-weight: 300;
-  margin-bottom: 8px;
-  color: var(--off-white);
-}
-
-.pub-desc {
-  font-family: 'Space Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.06em;
-  color: rgba(240, 237, 232, 0.35);
-  line-height: 1.6;
-}
-
-.pub-count {
-  font-family: 'Space Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: rgba(240, 237, 232, 0.2);
-  margin-top: 12px;
-}
-
-
-/* ================================
-   SECTION 7: COLOPHON / BACK MATTER
-   ================================ */
-.colophon {
-  position: relative;
-  padding: 120px 8vw 60px;
-  background:
-    linear-gradient(170deg, transparent 0%, rgba(0,0,0,0.025) 40%, transparent 70%);
-  background-color: var(--cream-dark);
-  box-shadow:
-    inset 0 40px 60px rgba(0,0,0,0.05),
-    inset 0 -20px 30px rgba(0,0,0,0.03);
-  /* subtle texture */
-  background-image:
-    repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.005) 2px, rgba(0,0,0,0.005) 3px),
-    repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(0,0,0,0.005) 2px, rgba(0,0,0,0.005) 3px);
-  background-color: var(--cream-dark);
-}
-
-.colophon-inner {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 60px;
-  max-width: 1100px;
-}
-
-.colophon-section {
-  position: relative;
-}
-
-.colophon-label {
-  font-family: 'Space Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--warm-grey);
-  margin-bottom: 20px;
-}
-
-.colophon-text {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 16px;
-  line-height: 1.7;
-  color: var(--ink-soft);
-}
-
-.colophon-text a {
-  border-bottom: 1px solid rgba(0,0,0,0.15);
-}
-
-.colophon-text a::after {
-  display: none;
-}
-
-.colophon-text a:hover {
-  border-bottom-color: var(--ink);
-}
-
-.colophon-bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 60px;
-  margin-top: 60px;
-  border-top: 1px solid rgba(0,0,0,0.08);
-}
-
-.colophon-clock {
-  font-family: 'Space Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  color: var(--warm-grey);
-}
-
-.colophon-copy {
-  font-family: 'Space Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--warm-grey);
-}
-
-/* crop marks bottom */
-.colophon-crop-bl {
-  position: absolute;
-  bottom: 24px;
-  left: 24px;
-  width: 20px;
-  height: 20px;
-  border-bottom: 1px solid rgba(0,0,0,0.15);
-  border-left: 1px solid rgba(0,0,0,0.15);
-}
-
-.colophon-crop-br {
-  position: absolute;
-  bottom: 24px;
-  right: 24px;
-  width: 20px;
-  height: 20px;
-  border-bottom: 1px solid rgba(0,0,0,0.15);
-  border-right: 1px solid rgba(0,0,0,0.15);
-}
-
-
-/* ================================
-   RESPONSIVE
-   ================================ */
-@media (max-width: 768px) {
-  .about-inner {
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
-
-  .about-number {
-    font-size: 48px;
-  }
-
-  .index-item {
-    grid-template-columns: 40px 1fr;
-    gap: 0;
-  }
-
-  .item-year {
-    grid-column: 2;
-    justify-self: start;
-    margin-top: 4px;
-    font-size: 9px;
-  }
-
-  .spread {
-    grid-template-columns: 1fr;
-    min-height: auto;
-  }
-
-  .spread::before {
-    display: none;
-  }
-
-  .spread-left {
-    padding: 60px 8vw;
-  }
-
-  .spread-right {
-    height: 50vh;
-  }
-
-  .pubs-grid {
-    grid-template-columns: 1fr;
-    gap: 0;
-  }
-
-  .colophon-inner {
-    grid-template-columns: 1fr;
-    gap: 36px;
-  }
-
-  .pullquote {
-    margin-left: 0;
-  }
-
-  .pullquote-attr {
-    margin-left: 0;
-  }
-
-  .preview-float {
-    display: none;
-  }
-
-  .cover-stamp {
-    display: none;
-  }
-}
-
-@media (max-width: 480px) {
-  .cover-title {
-    font-size: 48px;
-  }
-
-  .index-heading {
-    font-size: 36px;
-  }
-
-  .spread-title {
-    font-size: 28px;
-  }
-
-  .colophon-bottom {
-    flex-direction: column;
-    gap: 12px;
-    align-items: flex-start;
-  }
-}
-
-/* reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Snake Game</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container {
+      text-align: center;
+    }
+
+    h1 {
+      color: white;
+      margin-bottom: 30px;
+      font-size: 2.5em;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .game-wrapper {
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .stats {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 20px;
+      gap: 20px;
+    }
+
+    .stat {
+      flex: 1;
+    }
+
+    .stat-label {
+      color: #999;
+      font-size: 0.9em;
+      margin-bottom: 5px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .stat-value {
+      font-size: 2em;
+      font-weight: bold;
+      color: #667eea;
+    }
+
+    #gameCanvas {
+      display: block;
+      margin: 20px auto;
+      border: 3px solid #667eea;
+      border-radius: 10px;
+      background: #f5f5f5;
+      max-width: 100%;
+      height: auto;
+    }
+
+    .controls {
+      margin: 20px 0;
+      color: #666;
+      font-size: 0.95em;
+      line-height: 1.6;
+    }
+
+    .controls strong {
+      color: #667eea;
+    }
+
+    button {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      padding: 15px 40px;
+      font-size: 1.1em;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: transform 0.2s, box-shadow 0.2s;
+      margin-top: 20px;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    .game-over {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .game-over.show {
+      display: flex;
+    }
+
+    .game-over-content {
+      background: white;
+      padding: 50px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      animation: slideUp 0.3s ease-out;
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .game-over-content h2 {
+      color: #764ba2;
+      margin-bottom: 20px;
+      font-size: 2em;
+    }
+
+    .game-over-content p {
+      color: #666;
+      margin-bottom: 30px;
+      font-size: 1.2em;
+    }
+
+    .final-score {
+      font-size: 3em;
+      color: #667eea;
+      margin: 20px 0;
+      font-weight: bold;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2em;
+      }
+
+      .game-wrapper {
+        padding: 20px;
+      }
+
+      .stats {
+        flex-direction: column;
+        gap: 15px;
+      }
+    }
+  </style>
 </head>
 <body>
+  <div class="container">
+    <h1>🐍 Snake</h1>
 
-<!-- SVG FILTERS FOR EFFECTS -->
-<svg style="display: none;">
-  <defs>
-    <filter id="water-warp">
-      <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="3" result="noise" seed="2" />
-      <feDisplacementMap in="SourceGraphic" in2="noise" scale="2" xChannelSelector="R" yChannelSelector="G" />
-    </filter>
-  </defs>
-</svg>
-
-<!-- ============ COVER ============ -->
-<section class="cover" id="cover">
-  <div class="cover-crop-marks cover-crop-tl"></div>
-  <div class="cover-crop-marks cover-crop-tr"></div>
-  <div class="cover-crop-marks cover-crop-bl"></div>
-  <div class="cover-crop-marks cover-crop-br"></div>
-
-  <div class="cover-clock" id="cover-clock"></div>
-  <div class="cover-meta">
-    Portfolio<br>
-    Selected Works<br>
-    2019 — Present
-  </div>
-  <div class="cover-stamp">Original</div>
-  <div class="cover-title" data-text="Selected Writing">Selected<br>Writing</div>
-  <div class="cover-subtitle">Essays &middot; Criticism &middot; Reportage</div>
-  <div class="cover-line"></div>
-  <div class="cover-description">
-    A collection of published work spanning personal essays, cultural criticism, long-form reportage, and editorial features.
-  </div>
-  <div class="scroll-cue">Scroll</div>
-</section>
-
-
-<!-- ============ ABOUT STRIP ============ -->
-<section class="about-strip">
-  <div class="about-inner">
-    <div>
-      <div class="about-label">About the Author</div>
-      <div class="about-number">§</div>
-    </div>
-    <div>
-      <div class="about-text">
-        A writer working across <em>personal essay, cultural criticism, and narrative nonfiction</em>. My work examines the quiet intersections of place, memory, and the objects we carry through our lives. Previously published in <em>The Paris Review, Granta, Harper's Magazine,</em> and <em>The Believer</em>.
+    <div class="game-wrapper">
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-label">Score</div>
+          <div class="stat-value" id="score">0</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Level</div>
+          <div class="stat-value" id="level">1</div>
+        </div>
       </div>
-      <div class="about-meta-row">
-        <span>Brooklyn, NY</span>
-        <span>Represented by WME</span>
-        <span>MFA Columbia '18</span>
+
+      <canvas id="gameCanvas" width="400" height="400"></canvas>
+
+      <div class="controls">
+        <div><strong>Arrow Keys</strong> or <strong>WASD</strong> to move</div>
+        <div id="statusText">Press Space or click Start to play</div>
       </div>
+
+      <button id="startBtn" onclick="toggleGame()">Start Game</button>
     </div>
   </div>
-</section>
 
-
-<!-- ============ WORKS INDEX ============ -->
-<section class="index-section" id="works">
-  <div class="index-header">
-    <div class="index-heading">Selected Works</div>
-    <div class="index-count">12 Pieces / 2019–2025</div>
-  </div>
-  <div class="index-rule"></div>
-  <ul class="index-list" id="index-list">
-    <li class="index-item" data-img="https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=480&q=80">
-      <span class="item-num">001</span>
-      <div class="item-title-group">
-        <span class="item-title">The Cartography of Leaving</span>
-        <span class="item-pub">The Paris Review, Issue 248</span>
-      </div>
-      <span class="item-year">2025</span>
-    </li>
-    <li class="index-item" data-img="https://images.unsplash.com/photo-1519681393784-d120267933ba?w=480&q=80">
-      <span class="item-num">002</span>
-      <div class="item-title-group">
-        <span class="item-title">Altitude Sickness: Notes from the Edge of Somewhere</span>
-        <span class="item-pub">Granta 167 — Borders</span>
-      </div>
-      <span class="item-year">2024</span>
-    </li>
-    <li class="index-item" data-img="https://images.unsplash.com/photo-1495826797468-07a2df01869c?w=480&q=80">
-      <span class="item-num">003</span>
-      <div class="item-title-group">
-        <span class="item-title">What the River Forgets</span>
-        <span class="item-pub">Harper's Magazine</span>
-      </div>
-      <span class="item-year">2024</span>
-    </li>
-    <li class="index-item" data-img="https://images.unsplash.com/photo-1504711434969-e33886168d6c?w=480&q=80">
-      <span class="item-num">004</span>
-      <div class="item-title-group">
-        <span class="item-title">On Staying: A Refusal to Leave the Party</span>
-        <span class="item-pub">The Believer, Vol. 21 No. 3</span>
-      </div>
-      <span class="item-year">2023</span>
-    </li>
-    <li class="index-item" data-img="https://images.unsplash.com/photo-1532012197267-da84d127e765?w=480&q=80">
-      <span class="item-num">005</span>
-      <div class="item-title-group">
-        <span class="item-title">The Collected Silences of My Mother</span>
-        <span class="item-pub">Tin House — Memory Issue</span>
-      </div>
-      <span class="item-year">2023</span>
-    </li>
-    <li class="index-item" data-img="https://images.unsplash.com/photo-1461360228754-6e81c478b882?w=480&q=80">
-      <span class="item-num">006</span>
-      <div class="item-title-group">
-        <span class="item-title">Inventory of a Demolished House</span>
-        <span class="item-pub">The New York Times Magazine</span>
-      </div>
-      <span class="item-year">2022</span>
-    </li>
-    <li class="index-item" data-img="https://images.unsplash.com/photo-1476067897447-5a22e48a1462?w=480&q=80">
-      <span class="item-num">007</span>
-      <div class="item-title-group">
-        <span class="item-title">All the Funerals I Have Rehearsed</span>
-        <span class="item-pub">The Sewanee Review</span>
-      </div>
-      <span class="item-year">2022</span>
-    </li>
-    <li class="index-item" data-img="https://images.unsplash.com/photo-1473186505569-9c61870c11f9?w=480&q=80">
-      <span class="item-num">008</span>
-      <div class="item-title-group">
-        <span class="item-title">Fieldwork in Forgetting</span>
-        <span class="item-pub">Guernica</span>
-      </div>
-      <span class="item-year">2021</span>
-    </li>
-    <li class="index-item" data-img="https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=480&q=80">
-      <span class="item-num">009</span>
-      <div class="item-title-group">
-        <span class="item-title">The Museum of Small Failures</span>
-        <span class="item-pub">n+1 Magazine, Issue 42</span>
-      </div>
-      <span class="item-year">2021</span>
-    </li>
-    <li class="index-item" data-img="https://images.unsplash.com/photo-1455390582262-044cdead277a?w=480&q=80">
-      <span class="item-num">010</span>
-      <div class="item-title-group">
-        <span class="item-title">Against Arrival</span>
-        <span class="item-pub">The Point Magazine</span>
-      </div>
-      <span class="item-year">2020</span>
-    </li>
-    <li class="index-item" data-img="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=480&q=80">
-      <span class="item-num">011</span>
-      <div class="item-title-group">
-        <span class="item-title">The Weight of Light in December</span>
-        <span class="item-pub">The Yale Review</span>
-      </div>
-      <span class="item-year">2020</span>
-    </li>
-    <li class="index-item" data-img="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=480&q=80">
-      <span class="item-num">012</span>
-      <div class="item-title-group">
-        <span class="item-title">Notes Toward a Theory of Homesickness</span>
-        <span class="item-pub">Virginia Quarterly Review</span>
-      </div>
-      <span class="item-year">2019</span>
-    </li>
-  </ul>
-</section>
-
-
-<!-- ============ FEATURED SPREAD ============ -->
-<section class="spread">
-  <div class="spread-left">
-    <div class="spread-category">Featured Essay</div>
-    <h2 class="spread-title">The Cartography of Leaving</h2>
-    <p class="spread-excerpt">
-      "Every departure is a kind of draftsmanship — you are drawing boundaries around the life you're about to lose. I traced the edges of that apartment with my fingers the night before I left, the way a child traces a map they cannot yet read, following rivers that lead only to the margin of the page."
-    </p>
-    <div class="spread-date">The Paris Review — Issue 248 — Spring 2025</div>
-  </div>
-  <div class="spread-right">
-    <img class="spread-image" src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=900&q=80" alt="Library shelves receding into soft shadow, spines of old books creating a pattern of vertical lines and muted color">
-    <div class="spread-caption">Fig. 1 — The author's study, Brooklyn, 2024</div>
-  </div>
-</section>
-
-
-<!-- ============ PULL QUOTE ============ -->
-<section class="pullquote-section">
-  <blockquote class="pullquote">
-    Writing is the act of making the invisible visible — not by illumination, but by tracing the shape of what is absent.
-  </blockquote>
-  <div class="pullquote-attr">— From "Fieldwork in Forgetting," Guernica, 2021</div>
-</section>
-
-
-<!-- ============ PUBLICATIONS ============ -->
-<section class="pubs-section">
-  <div class="pubs-heading">Publications &amp; Outlets</div>
-  <div class="pubs-grid">
-    <div class="pub-item">
-      <div class="pub-name">The Paris Review</div>
-      <div class="pub-desc">Long-form personal essay and narrative nonfiction</div>
-      <div class="pub-count">3 pieces published</div>
-    </div>
-    <div class="pub-item">
-      <div class="pub-name">Granta</div>
-      <div class="pub-desc">Travel writing and border narratives</div>
-      <div class="pub-count">2 pieces published</div>
-    </div>
-    <div class="pub-item">
-      <div class="pub-name">Harper's</div>
-      <div class="pub-desc">Cultural criticism and reportage</div>
-      <div class="pub-count">2 pieces published</div>
-    </div>
-    <div class="pub-item">
-      <div class="pub-name">The Believer</div>
-      <div class="pub-desc">Personal essay and cultural observation</div>
-      <div class="pub-count">1 piece published</div>
-    </div>
-    <div class="pub-item">
-      <div class="pub-name">Tin House</div>
-      <div class="pub-desc">Memoir and family narrative</div>
-      <div class="pub-count">1 piece published</div>
-    </div>
-    <div class="pub-item">
-      <div class="pub-name">n+1</div>
-      <div class="pub-desc">Essays on failure, ambition, and the everyday</div>
-      <div class="pub-count">2 pieces published</div>
-    </div>
-    <div class="pub-item">
-      <div class="pub-name">NYT Magazine</div>
-      <div class="pub-desc">Feature reporting and personal essay</div>
-      <div class="pub-count">1 piece published</div>
-    </div>
-    <div class="pub-item">
-      <div class="pub-name">Guernica</div>
-      <div class="pub-desc">Essay on memory and place</div>
-      <div class="pub-count">1 piece published</div>
-    </div>
-    <div class="pub-item">
-      <div class="pub-name">The Sewanee Review</div>
-      <div class="pub-desc">Lyric essay and literary nonfiction</div>
-      <div class="pub-count">1 piece published</div>
+  <div class="game-over" id="gameOverModal">
+    <div class="game-over-content">
+      <h2>Game Over!</h2>
+      <p>You hit a wall or yourself</p>
+      <div class="final-score" id="finalScore">0</div>
+      <button onclick="location.reload()">Play Again</button>
     </div>
   </div>
-</section>
 
+  <script>
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    const scoreDisplay = document.getElementById('score');
+    const levelDisplay = document.getElementById('level');
+    const statusText = document.getElementById('statusText');
+    const startBtn = document.getElementById('startBtn');
+    const gameOverModal = document.getElementById('gameOverModal');
+    const finalScoreDisplay = document.getElementById('finalScore');
 
-<!-- ============ COLOPHON ============ -->
-<section class="colophon">
-  <div class="colophon-inner">
-    <div class="colophon-section">
-      <div class="colophon-label">Contact</div>
-      <div class="colophon-text">
-        For commissions, reprints, or speaking inquiries —<br><br>
-        <a href="mailto:hello@example.com">hello@example.com</a>
-      </div>
-    </div>
-    <div class="colophon-section">
-      <div class="colophon-label">Representation</div>
-      <div class="colophon-text">
-        Literary representation by<br>
-        William Morris Endeavor<br><br>
-        <a href="mailto:agent@example.com">agent@example.com</a>
-      </div>
-    </div>
-    <div class="colophon-section">
-      <div class="colophon-label">Elsewhere</div>
-      <div class="colophon-text">
-        <a href="#">The Paris Review — Contributors</a><br>
-        <a href="#">Granta — Author Page</a><br>
-        <a href="#">Substack — Occasional Notes</a>
-      </div>
-    </div>
-  </div>
-  <div class="colophon-bottom">
-    <div class="colophon-clock" id="footer-clock"></div>
-    <div class="colophon-copy">&copy; 2025 — All rights reserved</div>
-  </div>
-  <div class="colophon-crop-bl"></div>
-  <div class="colophon-crop-br"></div>
-</section>
+    const gridSize = 20;
+    const tileCount = canvas.width / gridSize;
 
+    let snake = [{x: 10, y: 10}];
+    let food = {x: 15, y: 15};
+    let direction = {x: 1, y: 0};
+    let nextDirection = {x: 1, y: 0};
+    let score = 0;
+    let level = 1;
+    let gameRunning = false;
+    let gameSpeed = 100;
+    let lastFrameTime = 0;
 
-<!-- Cursor-following preview -->
-<div class="preview-float" id="preview-float">
-  <img id="preview-img" src="" alt="Preview">
-</div>
+    function drawGame() {
+      ctx.fillStyle = '#f5f5f5';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+      ctx.fillStyle = '#667eea';
+      snake.forEach((segment, index) => {
+        ctx.fillRect(
+          segment.x * gridSize + 1,
+          segment.y * gridSize + 1,
+          gridSize - 2,
+          gridSize - 2
+        );
+        if (index === 0) {
+          ctx.fillStyle = '#764ba2';
+          ctx.fillRect(
+            segment.x * gridSize + 3,
+            segment.y * gridSize + 3,
+            gridSize - 6,
+            gridSize - 6
+          );
+          ctx.fillStyle = '#667eea';
+        }
+      });
 
-<script>
-(function() {
-  // === LIVE CLOCKS ===
-  function updateClocks() {
-    const now = new Date();
-    const h = String(now.getHours()).padStart(2, '0');
-    const m = String(now.getMinutes()).padStart(2, '0');
-    const s = String(now.getSeconds()).padStart(2, '0');
-    const time = h + ':' + m + ':' + s;
+      ctx.fillStyle = '#ff6b6b';
+      ctx.beginPath();
+      ctx.arc(
+        food.x * gridSize + gridSize / 2,
+        food.y * gridSize + gridSize / 2,
+        gridSize / 2 - 2,
+        0,
+        Math.PI * 2
+      );
+      ctx.fill();
+    }
 
-    const coverClock = document.getElementById('cover-clock');
-    const footerClock = document.getElementById('footer-clock');
-    if (coverClock) coverClock.textContent = time;
-    if (footerClock) footerClock.textContent = time + ' — Local Time';
-  }
-  updateClocks();
-  setInterval(updateClocks, 1000);
+    function update() {
+      if (!gameRunning) return;
 
+      direction = nextDirection;
 
-  // === CURSOR-FOLLOWING PREVIEW ON INDEX ITEMS ===
-  const previewFloat = document.getElementById('preview-float');
-  const previewImg = document.getElementById('preview-img');
-  const items = document.querySelectorAll('.index-item');
-  let currentItem = null;
-  let mouseX = 0;
-  let mouseY = 0;
-  let floatX = 0;
-  let floatY = 0;
+      const head = {
+        x: snake[0].x + direction.x,
+        y: snake[0].y + direction.y
+      };
 
-  items.forEach(function(item) {
-    item.addEventListener('mouseenter', function() {
-      const imgSrc = item.getAttribute('data-img');
-      if (imgSrc) {
-        previewImg.src = imgSrc;
-        previewFloat.classList.add('visible');
-        currentItem = item;
+      if (head.x < 0 || head.x >= tileCount || head.y < 0 || head.y >= tileCount) {
+        endGame();
+        return;
+      }
+
+      for (let segment of snake) {
+        if (head.x === segment.x && head.y === segment.y) {
+          endGame();
+          return;
+        }
+      }
+
+      snake.unshift(head);
+
+      if (head.x === food.x && head.y === food.y) {
+        score += 10;
+        level = Math.floor(score / 50) + 1;
+        gameSpeed = Math.max(50, 100 - level * 5);
+        scoreDisplay.textContent = score;
+        levelDisplay.textContent = level;
+
+        food = {
+          x: Math.floor(Math.random() * tileCount),
+          y: Math.floor(Math.random() * tileCount)
+        };
+      } else {
+        snake.pop();
+      }
+
+      drawGame();
+    }
+
+    function gameLoop(currentTime) {
+      if (currentTime - lastFrameTime >= gameSpeed) {
+        update();
+        lastFrameTime = currentTime;
+      }
+      requestAnimationFrame(gameLoop);
+    }
+
+    function toggleGame() {
+      gameRunning = !gameRunning;
+      statusText.textContent = gameRunning ? 'Game Playing' : 'Paused - Press Space to Resume';
+      startBtn.textContent = gameRunning ? 'Pause' : 'Resume';
+    }
+
+    function endGame() {
+      gameRunning = false;
+      finalScoreDisplay.textContent = score;
+      gameOverModal.classList.add('show');
+      startBtn.textContent = 'Start Game';
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.code === 'Space') {
+        e.preventDefault();
+        toggleGame();
+      }
+
+      const key = e.key.toLowerCase();
+
+      if (key === 'arrowup' || key === 'w') {
+        if (direction.y === 0) nextDirection = {x: 0, y: -1};
+      } else if (key === 'arrowdown' || key === 's') {
+        if (direction.y === 0) nextDirection = {x: 0, y: 1};
+      } else if (key === 'arrowleft' || key === 'a') {
+        if (direction.x === 0) nextDirection = {x: -1, y: 0};
+      } else if (key === 'arrowright' || key === 'd') {
+        if (direction.x === 0) nextDirection = {x: 1, y: 0};
       }
     });
 
-    item.addEventListener('mouseleave', function() {
-      previewFloat.classList.remove('visible');
-      currentItem = null;
-    });
-  });
-
-  document.addEventListener('mousemove', function(e) {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-  });
-
-  function animateFloat() {
-    floatX += (mouseX - floatX) * 0.12;
-    floatY += (mouseY - floatY) * 0.12;
-    previewFloat.style.left = (floatX + 20) + 'px';
-    previewFloat.style.top = (floatY - 80) + 'px';
-    requestAnimationFrame(animateFloat);
-  }
-  animateFloat();
-
-
-  // === SUBTLE PARALLAX ON PAPER GRAIN ===
-  let scrollY = 0;
-  window.addEventListener('scroll', function() {
-    scrollY = window.pageYOffset;
-    document.body.style.setProperty('--scroll', scrollY + 'px');
-  }, { passive: true });
-
-})();
-</script>
-
+    drawGame();
+    requestAnimationFrame(gameLoop);
+  </script>
 </body>
 </html>
